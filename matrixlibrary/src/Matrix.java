@@ -14,9 +14,9 @@ public class Matrix implements IMatrix {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
                 if (x == y) {
-                    values[y][x] = 1;
+                    values[y][x] = 1.0;
                 } else {
-                    values[y][x] = 0;
+                    values[y][x] = 0.0;
                 }
             }
         }
