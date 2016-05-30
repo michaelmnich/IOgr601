@@ -1,3 +1,4 @@
+import junit.framework.Assert;
 import org.junit.Test;
 
 public class MatrixTest {
@@ -17,7 +18,17 @@ public class MatrixTest {
     }
 
     @Test
-    public void testDeterminant(){}
+    public void testDeterminant(){
+        Matrix macierz = new Matrix();
+        double tablica[][]=new double[3][2];
+        macierz.setMatrixValues(tablica);
+        try{
+            macierz.Determinant();
+        }catch(Exception e){
+            return;
+        }
+        Assert.fail();
+    }
 
     @Test
     public void testGetMatrixValue (){}
