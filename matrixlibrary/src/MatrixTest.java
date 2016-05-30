@@ -12,13 +12,13 @@ public class MatrixTest {
         for(int a=0;a<5;a++)
             for(int b=0;b<5;b++){
                 if(b==a) {try {
-                    Assert.assertEquals(1,macierz.GetMatrixValue(a,b));
+                    Assert.assertEquals(1.0,macierz.GetMatrixValue(a,b));
                 } catch (InvalidDimensionException e) {org.junit.Assert.fail();}
                 }
                 else try {
-                    Assert.assertEquals(0,macierz.GetMatrixValue(a,b));
+                    Assert.assertEquals(0.0,macierz.GetMatrixValue(a,b));
                 } catch (InvalidDimensionException e) {org.junit.Assert.fail();}
-                }
+            }
 
 
     }
@@ -45,7 +45,7 @@ public class MatrixTest {
                 tablica[a][b]=2;
         macierz.setMatrixValues(tablica);
         try{
-            Assert.assertEquals(macierz.Determinant(),0);
+            Assert.assertEquals(macierz.Determinant(),0.0);
         }catch(Exception e){
             org.junit.Assert.fail();}
     }
@@ -59,7 +59,7 @@ public class MatrixTest {
                 tablica[a][b]=a+b;
         macierz.setMatrixValues(tablica);
         try{
-            Assert.assertEquals(macierz.Determinant(),-1);
+            Assert.assertEquals(macierz.Determinant(),-1.0);
         }catch(Exception e){
             org.junit.Assert.fail();}
     }
@@ -74,29 +74,40 @@ public class MatrixTest {
         for(int a=0;a<3;a++)
             for(int b=0;b<3;b++)
                 try {
-                    Assert.assertEquals(macierz.GetMatrixValue(a,b),a+b);
+                    Assert.assertEquals(macierz.GetMatrixValue(a,b),(double)a+b);
                 } catch (InvalidDimensionException e) {org.junit.Assert.fail(); }
 
         try {
             macierz.GetMatrixValue(2,3);
             org.junit.Assert.fail();
-        } catch (InvalidDimensionException e) {}
+        } catch (Exception e) {}
 
         try {
             macierz.GetMatrixValue(3,3);
             org.junit.Assert.fail();
-        } catch (InvalidDimensionException e) {}
+        } catch (Exception e) {}
 
         try {
             macierz.GetMatrixValue(3,2);
             org.junit.Assert.fail();
-        } catch (InvalidDimensionException e) {}
+        } catch (Exception e) {}
 
     }
 
 
     @Test
-    public void testsetMatrixValue (){}
+    public void testsetMatrixValue (){
+        Matrix macierz= new Matrix();
+        macierz.CreatIdentityMatrix(10);
+        try {
+            macierz.setMatrixValue(0,0,5);
+        } catch (Exception e) {org.junit.Assert.fail();}
+
+        try {
+            org.junit.Assert.assertEquals(macierz.GetMatrixValue(0,0),5);
+        } catch (Exception e) {org.junit.Assert.fail();}
+
+    }
 
     @Test
     public void testsetMatrixValues (){}
