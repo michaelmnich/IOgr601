@@ -11,12 +11,12 @@ public class Matrix implements IMatrix {
         width = size;
         height = size;
         values = new double[size][size];
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
+        for (int y = 0; y < height; y++) {
+            for (int x = 0; x < width; x++) {
                 if (x == y) {
-                    values[x][y] = 1;
+                    values[y][x] = 1;
                 } else {
-                    values[x][y] = 0;
+                    values[y][x] = 0;
                 }
             }
         }
@@ -24,24 +24,34 @@ public class Matrix implements IMatrix {
 
     @Override
     public double Determinant() {
+    
         return 0;
     }
 
     @Override
     public double GetMatrixValue(int row, int column) throws InvalidDimensionException {
-        checkIfOutOfBounds(column, row);
-        return values[column][row];
+        checkIfOutOfBounds(row, column);
+        return values[row][column];
     }
 
     @Override
     public void setMatrixValue(int row, int column, double value) throws InvalidDimensionException {
-        checkIfOutOfBounds(column, row);
-        values[column][row] = value;
+        checkIfOutOfBounds(row, column);
+        values[row][column] = value;
     }
 
     @Override
     public void setMatrixValues(double[][] values) {
-        
+        if (values == null) {
+            width = height = 0;
+            this.values = null;
+        } else {
+            this.values = values;
+            height = values.length;
+            if (height != 0) {
+                width = values[0].length;
+            }
+        }
     }
 
     @Override
@@ -54,8 +64,8 @@ public class Matrix implements IMatrix {
         return height;
     }
 
-    private void checkIfOutOfBounds(int x, int y) throws InvalidDimensionException {
-        if (x < 0 || x > width || y < 0 || y > height) {
+    private void checkIfOutOfBounds(int row, int column) throws InvalidDimensionException {
+        if (row < 0 || row > height || column < 0 || column > width) {
             throw new InvalidDimensionException();
         }
     }
