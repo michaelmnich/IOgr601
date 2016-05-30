@@ -23,9 +23,20 @@ public class Matrix implements IMatrix {
     }
 
     @Override
-    public double Determinant() {
-    
-        return 0;
+    public double Determinant() throws InvalidDimensionException {
+        if (width != height || width == 0) {
+            throw new InvalidDimensionException();
+        }
+
+        if (width == 1) {
+            return values[0][0];
+        } else if (width == 2) {
+            return getTwoByTwoDeterminant();
+        } else if (width == 3) {
+            return getThreeByThreeDeterminant();
+        } else {
+            throw new InvalidDimensionException("Too big matrix to calculate determinant.");
+        }
     }
 
     @Override
@@ -68,5 +79,18 @@ public class Matrix implements IMatrix {
         if (row < 0 || row > height || column < 0 || column > width) {
             throw new InvalidDimensionException();
         }
+    }
+
+    private double getThreeByThreeDeterminant() {
+        return values[0][0] * values[1][1] * values[2][2] +
+                values[0][1] * values[1][2] * values[2][0] +
+                values[0][2] * values[1][0] * values[2][1] -
+                values[0][2] * values[1][1] * values[2][0] -
+                values[0][1] * values[1][0] * values[2][2] -
+                values[0][0] * values[1][2] * values[2][1];
+    }
+
+    private double getTwoByTwoDeterminant() {
+        return values[0][0] * values[1][1] - (values[0][1] * values[1][0]);
     }
 }
