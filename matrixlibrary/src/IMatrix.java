@@ -8,4 +8,6 @@ public interface IMatrix {
     double GetMatrixValue(int row, int column) throws InvalidDimensionException;
     void setMatrixValue(int row, int column, double value);
     void setMatrixValues(double[][] values);
+    int getMatrixWidth();
+    int getMatrixHeight();
 }
