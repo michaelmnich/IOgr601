@@ -104,12 +104,28 @@ public class MatrixTest {
         } catch (Exception e) {org.junit.Assert.fail();}
 
         try {
-            org.junit.Assert.assertEquals(macierz.GetMatrixValue(0,0),5);
+            Assert.assertEquals(macierz.GetMatrixValue(0,0),5.0);
         } catch (Exception e) {org.junit.Assert.fail();}
 
+        try {
+            macierz.setMatrixValue(11,11,4132);
+        } catch (Exception e) {return;}
+        org.junit.Assert.fail();
     }
 
     @Test
-    public void testsetMatrixValues (){}
+    public void testsetMatrixValues (){
+        Matrix macierz = new Matrix();
+        double tablica[][]=new double[3][3];
+        for(int a=0;a<3;a++)
+            for(int b=0;b<3;b++)
+                tablica[a][b]=a+b;
+        macierz.setMatrixValues(tablica);
+        for(int a=0;a<3;a++)
+            for(int b=0;b<3;b++)
+                try {
+                    Assert.assertEquals(macierz.GetMatrixValue(a,b),(double)a+b);
+                } catch (InvalidDimensionException e) {org.junit.Assert.fail(); }
+    }
 
 }
