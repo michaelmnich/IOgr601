@@ -5,7 +5,7 @@ public interface IMatrix {
 
     void CreatIdentityMatrix(int size);
     double Determinant();
-    double GetMatrixValue(int row, int column);
+    double GetMatrixValue(int row, int column) throws InvalidDimensionException;
     void setMatrixValue(int row, int column, double value);
     void setMatrixValues(double[][] values);
 }
